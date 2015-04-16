@@ -15,4 +15,4 @@ http://dev.zachdyerdesign.com/dev/game-library/﻿
 # Project Information
 - Author: Zach Dyer
 - Website: ZachDyerDesign.com
-- Version: 0.1.0
+- Version: 1.1.0
