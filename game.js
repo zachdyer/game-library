@@ -1,3 +1,7 @@
+var Game = {
+	canvas: document.createElement("canvas");
+};
+
 function Game(canvasID) {
 	//Take out body spacing and silly side bars
 	document.body.style.margin = 0;
@@ -20,7 +24,7 @@ function Game(canvasID) {
 	this.canvasElement = document.getElementById(canvasID);
 
 	this.screen = new Object;
-	this.screen.adjust=function (){
+	this.screen.adjust=function () {
 		self.screen.width = window.innerWidth;
 		self.screen.height = window.innerHeight;
 		self.canvasElement.width = self.screen.width;

@@ -5,11 +5,39 @@
     <title>Example Sprite Usage</title>
     <script type="text/javascript" src="../js/game.js"></script>
     <script type="text/javascript">
-      var game = new Game();
+      var game = new Enja.Game(500, 500);
+      game.load.sprite('background', 'debug-grid-1920x1920.png');
       game.load.sprite('ship','6B.png');
+
+      var player = null,
+        background = null;
+
       function create() {
-        var ship = game.add.sprite(0, 0, 'ship');
+        background = new Enja.Sprite(0, 0, 'background');
+        ship = new Enja.Sprite(960, 640, 'ship');
+        ship.setAnchor(0.5, 0.5);
+        ship.rotation = 0;
+        ship.speed = 5;
+        ship.focus = true;
+        console.log("ship sprite drawn at x:500 and y:500 and alignment set to center");
       }
+
+      function update() {
+        //ship.rotation++;
+        if(Enja.controls.up) {
+          ship.y -= ship.speed;
+        }
+        if(Enja.controls.right) {
+          ship.x += ship.speed;
+        }
+        if(Enja.controls.down) {
+          ship.y += ship.speed;
+        }
+        if(Enja.controls.left) {
+          ship.x -= ship.speed;
+        }
+      };
+
     </script>
   </head>
   <body>
