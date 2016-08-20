@@ -3,13 +3,17 @@ var Enja = Enja || {
   canvas: document.createElement("canvas"),
   ctx: null,
   sprites: [],
+  chunks: [],
   images: [],
   width: 0,
   height: 0,
+  infinite: false,
+  chunkSize: 0,
   Game:  function(width, height) {
     var self = this;
     Enja.width = width;
     Enja.height = height;
+    Enja.infinite = (width != null) ? false : true;
     Enja.canvas.width = window.innerWidth;
     Enja.canvas.height = window.innerHeight;
     Enja.canvas.style.backgroundColor = "black";
@@ -105,11 +109,26 @@ var Enja = Enja || {
 
     Enja.sprites.push(this);
   },
+  Chunk: function(x, y, width, height) {
+    this.x = x;
+    this.y = y;
+    this.width = width;
+    this.height = height;
+  },
   erase: function () {
     this.ctx.clearRect(0,0, window.innerWidth, window.innerHeight);
   },
+
   draw: function() {
     //Draw background
+    //Need to draw background in 9 different spots to make infinite tiles
+    var background = this.sprites[0];
+    for(var x = -1; x < 1; x++) {
+      for(var y = -1; y < 1; y++) {
+        //Enja.ctx.translate(window.innerWidth * 0.5 - Enja.camera.x + background.x, window.innerHeight * 0.5 - Enja.camera.y + background.y);
+        Enja.ctx.drawImage(background.image, 0 - background.width * background.anchorX * x, 0 - background.height * background.anchorY * y);
+      }
+    }
     for(var i = 0; i < this.sprites.length; i++) {
       var sprite = this.sprites[i];
       Enja.ctx.save();
@@ -120,7 +139,6 @@ var Enja = Enja || {
       Enja.ctx.translate(window.innerWidth * 0.5 - Enja.camera.x + sprite.x, window.innerHeight * 0.5 - Enja.camera.y + sprite.y);
       Enja.ctx.rotate(sprite.rotation * Math.PI/180);
       Enja.ctx.drawImage(sprite.image, 0 - sprite.width * sprite.anchorX, 0 - sprite.height * sprite.anchorY);
-
       Enja.ctx.restore();
     }
   },
@@ -133,7 +151,13 @@ var Enja = Enja || {
     requestAnimationFrame(Enja.loop);
   },
   update: function() {
+    if(this.infinite) {
+      for(var x = -1; x < 1; x++) {
+        for(var y = -1; y < 1; y++) {
 
+        }
+      }
+    }
   },
   camera: {
     x: 0,
