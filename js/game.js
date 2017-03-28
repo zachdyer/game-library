@@ -48,18 +48,39 @@ function Game(width, height) {
 		return speed / fps.timePerTick;
 	};
 	
+	//Draw Shapes
+	this.circle = function(x, y, radius) {
+		this.context.beginPath();
+		this.context.arc(x,y,radius,0,2*Math.PI);
+		this.context.fill();
+		this.context.stroke();
+	};
+	this.rect = function(x, y, width, height) {
+		this.context.beginPath();
+		this.context.rect(x, y, width, height);
+		this.context.fill();
+		this.context.stroke();
+	};
+	this.line = function (x1, y1, x2, y2) {
+		this.context.beginPath();
+		this.context.moveTo(x1, y1);
+		this.context.lineTo(x2, y2);
+		this.context.stroke();
+		this.context.closePath();
+	}
+	
 	var clearScreen = function(){
-		self.context.clearRect(0, 0, self.screen.width, self.screen.height);
+		self.context.clearRect(0, 0, self.canvas.width, self.canvas.height);
 	};
 
 	//This starts the main game loop
-	this.gameLoop = function (){
+	this.loop = function (){
 		requestAnimationFrame(function(){
 			fps.update();
 			self.update();
 			clearScreen();
 			self.draw();
-			self.gameLoop();
+			self.loop();
 		})
  	};
  	
@@ -88,6 +109,8 @@ function Game(width, height) {
 		
 		//Adds the canvas to the body tag
 		document.body.appendChild(self.canvas);
+	
+		self.loop();
 		
 	});
 	
