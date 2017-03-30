@@ -1,4 +1,4 @@
-var = gameLibrary = gameLibrary || {
+var gameLibrary = gameLibrary || {
 	Game: function (width, height) {
 	
 		this.canvas = document.createElement('canvas');
@@ -70,14 +70,16 @@ var = gameLibrary = gameLibrary || {
 			this.context.closePath();
 		};
 		
-		//Objects
-		this.Spirte =  function (x, y, img) {
+		//Sprites
+		this.Sprite =  function (x, y, img) {
 			this.x = x;
 			this.y = y;
-			this.img = new Image();
+			this.img = document.createElement("img");
 			this.img.src = img;
-			
-		}
+			this.img.addEventListener("load",function() {
+				console.log("image loaded");
+			});
+		};
 		
 		var clearScreen = function(){
 			self.context.clearRect(0, 0, self.canvas.width, self.canvas.height);
@@ -102,7 +104,12 @@ var = gameLibrary = gameLibrary || {
 	 	//The custom game draw
 	 	this.draw = function() {
 	 		
+	 		
 	 	};
+	 	this.sprite = function (sprite) {
+	 		this.context.drawImage(sprite.img, sprite.x, sprite.y);
+	 		
+	 	}
 	 	
 		
 		//When the window fully loads
